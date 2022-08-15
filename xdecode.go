@@ -7,7 +7,7 @@ import (
 )
 
 // Decode with generic support.
-func Decode[T any](ctx context.Context, cursor mongo.Cursor, stopWhenDecodeErr bool) ([]T, error) {
+func Decode[T any](ctx context.Context, cursor *mongo.Cursor, stopWhenDecodeErr bool) ([]T, error) {
 	res := make([]T, 0)
 	for cursor.Next(ctx) {
 		newT := new(T)
