@@ -79,3 +79,14 @@ func TestRepoFindOne(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestRepoFind(t *testing.T) {
+	TestRepoInsertMany(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	c := int64(3)
+	_, err := repo.Find(ctx, &bson.M{}, &options.FindOptions{Limit: &c})
+	if err != nil {
+		t.Fatal(err)
+	}
+}
