@@ -23,12 +23,12 @@ func (r Repo[M]) Get(ctx context.Context, oid primitive.ObjectID) (M, error) {
 	return r.FindOne(ctx, &bson.M{"_id": oid})
 }
 
-func (r Repo[M]) Find(ctx context.Context, query *bson.M, opts ...*options.FindOptions) ([]M, error) {
-	return Find[M](ctx, r.collection, query, opts...)
+func (r Repo[M]) Find(ctx context.Context, filter interface{}, opts ...*options.FindOptions) ([]M, error) {
+	return Find[M](ctx, r.collection, filter, opts...)
 }
 
-func (r Repo[M]) FindOne(ctx context.Context, query *bson.M, opts ...*options.FindOneOptions) (M, error) {
-	return FindOne[M](ctx, r.collection, query, opts...)
+func (r Repo[M]) FindOne(ctx context.Context, filter interface{}, opts ...*options.FindOneOptions) (M, error) {
+	return FindOne[M](ctx, r.collection, filter, opts...)
 }
 
 func (r Repo[M]) InsertOne(ctx context.Context, doc M, opts ...*options.InsertOneOptions) (*mongo.InsertOneResult, error) {
