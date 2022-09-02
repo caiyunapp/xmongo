@@ -2,7 +2,6 @@ package xmongo
 
 import (
 	"context"
-	"fmt"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,7 +11,6 @@ func FindOne[T any](ctx context.Context, coll *mongo.Collection, filter interfac
 	t := *new(T)
 	res := coll.FindOne(ctx, filter, opts...)
 	if err := res.Err(); err != nil {
-		fmt.Println("xxxxx", err)
 		return *new(T), err
 	}
 	if err := res.Decode(&t); err != nil {
