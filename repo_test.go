@@ -98,5 +98,6 @@ func ExampleRepo() {
 
 	fmt.Println(repo.FindOne(ctx, bson.M{}))
 	fmt.Println(repo.Find(ctx, bson.M{}))
-	fmt.Println(repo.InsertOne(ctx, Record{OID: primitive.NewObjectID(), Msg: "insert_one"}))
+	insertRes, err := repo.InsertOne(ctx, Record{OID: primitive.NewObjectID(), Msg: "insert_one"})
+	fmt.Println(insertRes, err)
 }
