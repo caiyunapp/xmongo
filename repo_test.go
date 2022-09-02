@@ -2,6 +2,7 @@ package xmongo_test
 
 import (
 	"context"
+	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -89,4 +90,49 @@ func TestRepoFind(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+func ExampleRepo_FindOne() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		panic(err)
+	}
+	err = client.Connect(ctx)
+	if err != nil {
+		panic(err)
+	}
+	repo, _ = xmongo.NewRepo[Record](client.Database(databaseName).Collection(collectionName))
+	fmt.Println(repo.FindOne(ctx, bson.M{}))
+}
+
+func ExampleRepo_Find() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		panic(err)
+	}
+	err = client.Connect(ctx)
+	if err != nil {
+		panic(err)
+	}
+	repo, _ = xmongo.NewRepo[Record](client.Database(databaseName).Collection(collectionName))
+	fmt.Println(repo.Find(ctx, bson.M{}))
+}
+
+func ExampleRepo_InsertOne() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		panic(err)
+	}
+	err = client.Connect(ctx)
+	if err != nil {
+		panic(err)
+	}
+	repo, _ = xmongo.NewRepo[Record](client.Database(databaseName).Collection(collectionName))
+	repo.InsertOne(ctx, Record{OID: primitive.NewObjectID(), Msg: "insert_one"})
 }
