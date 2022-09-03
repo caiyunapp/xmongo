@@ -42,3 +42,7 @@ func (r Repo[M]) InsertMany(ctx context.Context, docs []M, opts ...*options.Inse
 	}
 	return r.collection.InsertMany(ctx, inputs, opts...)
 }
+
+func (r Repo[M]) Aggregate(ctx context.Context, pipeline interface{}, opts ...*options.AggregateOptions) (*mongo.Cursor, error) {
+	return r.collection.Aggregate(ctx, pipeline, opts...)
+}
