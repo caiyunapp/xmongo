@@ -23,7 +23,7 @@ func (r Repo[M]) Get(ctx context.Context, oid primitive.ObjectID) (M, error) {
 	return r.FindOne(ctx, &bson.M{"_id": oid})
 }
 
-func (r Repo[M]) Find(ctx context.Context, filter interface{}, opts ...*options.FindOptions) ([]M, error) {
+func (r Repo[M]) Find(ctx context.Context, filter interface{}, opts ...*options.FindOptions) ([]*M, error) {
 	return Find[M](ctx, r.collection, filter, opts...)
 }
 

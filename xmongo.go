@@ -19,7 +19,7 @@ func FindOne[T any](ctx context.Context, coll *mongo.Collection, filter interfac
 	return t, nil
 }
 
-func Find[T any](ctx context.Context, coll *mongo.Collection, filter interface{}, opts ...*options.FindOptions) ([]T, error) {
+func Find[T any](ctx context.Context, coll *mongo.Collection, filter interface{}, opts ...*options.FindOptions) ([]*T, error) {
 	cursor, err := coll.Find(ctx, filter, opts...)
 	if err != nil {
 		return nil, err
@@ -28,14 +28,14 @@ func Find[T any](ctx context.Context, coll *mongo.Collection, filter interface{}
 }
 
 // Decode with generic support.
-func Decode[T any](ctx context.Context, cursor *mongo.Cursor) ([]T, error) {
-	res := make([]T, 0)
+func Decode[T any](ctx context.Context, cursor *mongo.Cursor) ([]*T, error) {
+	res := make([]*T, 0)
 	for cursor.Next(ctx) {
 		newT := new(T)
 		if err := cursor.Decode(newT); err != nil {
 			return nil, err
 		}
-		res = append(res, *newT)
+		res = append(res, newT)
 	}
 	return res, nil
 }
