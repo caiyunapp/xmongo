@@ -19,7 +19,7 @@ func NewRepo[M any](collection *mongo.Collection) (*Repo[M], error) {
 	}, nil
 }
 
-func (r Repo[M]) Get(ctx context.Context, oid primitive.ObjectID) (M, error) {
+func (r Repo[M]) Get(ctx context.Context, oid primitive.ObjectID) (*M, error) {
 	return r.FindOne(ctx, &bson.M{"_id": oid})
 }
 
@@ -27,7 +27,7 @@ func (r Repo[M]) Find(ctx context.Context, filter interface{}, opts ...*options.
 	return Find[M](ctx, r.collection, filter, opts...)
 }
 
-func (r Repo[M]) FindOne(ctx context.Context, filter interface{}, opts ...*options.FindOneOptions) (M, error) {
+func (r Repo[M]) FindOne(ctx context.Context, filter interface{}, opts ...*options.FindOneOptions) (*M, error) {
 	return FindOne[M](ctx, r.collection, filter, opts...)
 }
 
