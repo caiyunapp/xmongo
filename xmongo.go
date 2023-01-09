@@ -7,16 +7,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func FindOne[T any](ctx context.Context, coll *mongo.Collection, filter interface{}, opts ...*options.FindOneOptions) (T, error) {
+func FindOne[T any](ctx context.Context, coll *mongo.Collection, filter interface{}, opts ...*options.FindOneOptions) (*T, error) {
 	t := *new(T)
 	res := coll.FindOne(ctx, filter, opts...)
 	if err := res.Err(); err != nil {
-		return *new(T), err
+		return new(T), err
 	}
 	if err := res.Decode(&t); err != nil {
-		return t, err
+		return &t, err
 	}
-	return t, nil
+	return &t, nil
 }
 
 func Find[T any](ctx context.Context, coll *mongo.Collection, filter interface{}, opts ...*options.FindOptions) ([]*T, error) {
