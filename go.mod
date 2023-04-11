@@ -2,7 +2,7 @@ module github.com/ringsaturn/xmongo
 
 go 1.18
 
-require go.mongodb.org/mongo-driver v1.11.3
+require go.mongodb.org/mongo-driver v1.11.4
 
 require (
 	github.com/golang/snappy v0.0.1 // indirect
