@@ -1,4 +1,4 @@
-module github.com/ringsaturn/xmongo
+module github.com/caiyunapp/xmongo
 
 go 1.20
 
