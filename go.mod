@@ -2,7 +2,7 @@ module github.com/caiyunapp/xmongo
 
 go 1.20
 
-require go.mongodb.org/mongo-driver v1.13.0
+require go.mongodb.org/mongo-driver v1.13.1
 
 require (
 	github.com/golang/snappy v0.0.4 // indirect
